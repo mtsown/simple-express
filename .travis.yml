@@ -13,12 +13,18 @@ install:
 before_script:
   - echo "no tests"
 
+branches:
+  except:
+  - dev
+  only:
+  - master
+
 script:
   - docker --version # print the version for logging
   - docker build -t simple-express .
-  - docker tag simple-express YOUR_DOCKER_HUB/simple-express:latest
+  - docker tag simple-express mtsowm/udacity-simple-express:latest
 
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push YOUR_DOCKER_HUB/simple-express
+  - docker push simple-express mtsowm/udacity-simple-express
 
